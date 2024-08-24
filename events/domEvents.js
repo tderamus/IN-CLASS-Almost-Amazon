@@ -1,7 +1,8 @@
-import { deleteAuthor, getAuthors } from '../api/authorData';
 import { deleteBook, getBooks } from '../api/bookData';
-import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
+import addBookForm from '../components/forms/addBookForm';
+import { deleteAuthor, getAuthors } from '../api/authorData';
+import { showAuthors } from '../pages/authors';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -24,10 +25,10 @@ const domEvents = () => {
     }
 
     // TODO: CLICK EVENT EDITING/UPDATING A BOOK
-    if (e.target.id.includes('edit-book-btn')) {
-      console.warn('EDIT BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+    if (e.target.id.includes('add-book-btn')) {
+      addBookForm();
     }
+
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
       console.warn('VIEW BOOK', e.target.id);
