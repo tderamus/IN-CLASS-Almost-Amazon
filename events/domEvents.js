@@ -58,10 +58,10 @@ const domEvents = () => {
       addAuthorForm();
     }
 
-    // FIXME: ADD CLICK EVENT FOR EDITING AN AUTHOR
+    // FIXME: ADD CLICK EVENT FOR EDITING/UPDATING AN AUTHOR
     if (e.target.id.includes('update-author-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-
+      console.warn('UPDATED AUTHOR', e.target.id);
       getSingleAuthor(firebaseKey).then((authorObj) => addAuthorForm(authorObj));
     }
   });

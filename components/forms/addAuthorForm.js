@@ -4,7 +4,7 @@ import renderToDOM from '../../utils/renderToDom';
 const addAuthorForm = (obj = {}) => {
   clearDom();
   const domString = `
-    <form id="${obj.firbasekey ? `update-author--${obj.firbasekey}` : 'submit-author'}" class="mb-4">
+    <form id="${obj.firebasekey ? `update-author--${obj.firebasekey}` : 'submit-author'}" class="mb-4">
       <div class="form-group">
         <label for="image">First Name</label>
         <input type="text" class="form-control" id="first_name" placeholder="First Name" value="${obj.first_name}" required>
