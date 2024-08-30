@@ -1,9 +1,16 @@
-import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
+import {
+  deleteBook, getBooks, getSingleBook
+} from '../api/bookData';
+import { getAuthorDetails, getBookDetails } from '../api/mergedData';
 import { showBooks } from '../pages/books';
 import addBookForm from '../components/forms/addBookForm';
-import { deleteAuthor, getAuthors, getSingleAuthor } from '../api/authorData';
+import viewBook from '../pages/viewBook';
+import {
+  deleteAuthor, getAuthors, getSingleAuthor
+} from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import addAuthorForm from '../components/forms/addAuthorForm';
+import viewAuthor from '../pages/viewAuthor';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -34,12 +41,10 @@ const domEvents = () => {
     }
 
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
-    if (e.target.id.includes('edit-book-btn')) {
+    if (e.target.id.includes('view-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-
-      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
+      getBookDetails(firebaseKey).then(viewBook);
     }
-
     // FIXME: ADD CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author-btn')) {
       // eslint-disable-next-line no-alert
@@ -61,8 +66,16 @@ const domEvents = () => {
     // FIXME: ADD CLICK EVENT FOR EDITING/UPDATING AN AUTHOR
     if (e.target.id.includes('update-author-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-      console.warn('UPDATED AUTHOR', e.target.id);
+      console.warn('VIEW AUTHOR', e.target.id);
       getSingleAuthor(firebaseKey).then((authorObj) => addAuthorForm(authorObj));
+    }
+
+    // TODO: CLICK EVENT FOR VIEW AUTHOR DETAILS
+    if (e.target.id.includes('view-author-btn')) {
+      console.warn('VIEW AUTHOR DETAIL', e.target.id);
+      const [, firebaseKey] = e.target.id.split('--');
+      console.warn(e.target.id);
+      getAuthorDetails(firebaseKey).then(viewAuthor);
     }
   });
 };

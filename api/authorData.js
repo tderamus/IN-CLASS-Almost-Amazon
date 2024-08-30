@@ -82,16 +82,16 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: GET A SINGLE AUTHOR'S BOOKS
+// TODO GET AUTHOR BOOKS
 const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/authors/${firebaseKey}.json`, {
+  fetch(`${endpoint}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
 
@@ -101,6 +101,6 @@ export {
   getSingleAuthor,
   deleteAuthor,
   updateAuthor,
-  getAuthorBooks,
   favAuthors,
+  getAuthorBooks,
 };

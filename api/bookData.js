@@ -1,4 +1,5 @@
 import client from '../utils/client';
+
 // API CALLS FOR BOOKS
 
 const endpoint = client.databaseURL;
@@ -90,5 +91,5 @@ export {
   booksOnSale,
   deleteBook,
   getSingleBook,
-  updateBook
+  updateBook,
 };
