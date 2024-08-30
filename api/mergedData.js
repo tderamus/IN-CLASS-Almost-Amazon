@@ -1,5 +1,5 @@
-import { getAuthorBooks, getSingleAuthor } from './authorData';
-import { getSingleBook } from './bookData';
+import { getAuthorBooks, getSingleAuthor, deleteAuthor } from './authorData';
+import { getSingleBook, deleteBook } from './bookData';
 // for merged promises
 
 // TODO: Get data for viewBook
@@ -22,6 +22,8 @@ const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
 //   }).catch(reject);
 // });
 
+// TODO Get Data For ViewAuthor
+
 const getAuthorDetails = async (firebaseKey) => { // the async keyword let's JS know this is asynchronous function (promise)
   const authorObject = await getSingleAuthor(firebaseKey); // await stops the code in this function and waits for the response. This is like using .then
   const bookObject = await getAuthorBooks(firebaseKey); // this function uses the data response from the bookObject
@@ -29,4 +31,16 @@ const getAuthorDetails = async (firebaseKey) => { // the async keyword let's JS 
   return { ...authorObject, books: bookObject };
 };
 
-export { getBookDetails, getAuthorDetails };
+// TODO Delete Author Books
+
+const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, reject) => {
+  getAuthorBooks(firebaseKey).then((authorBooksArray) => {
+    const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
+
+    Promise.all(deleteBookPromises).then(() => {
+      deleteAuthor(firebaseKey).then(resolve);
+    });
+  }).catch(reject);
+});
+
+export { getBookDetails, getAuthorDetails, deleteAuthorBooksRelationship };
