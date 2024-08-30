@@ -19,8 +19,8 @@ const viewAuthor = (obj) => {
 
   obj.books.forEach((item) => {
     domString += `
-      <div class="card">
-        <img class="card-img-top" src=${item.image} alt=${item.title} style="height: 400px;">
+      <div class="card-view">
+        <img class="card-img-top" src=${item.image} alt=${item.title};">
         <div class="card-body" style="height: 180px;">
           <h5 class="card-title">${item.title}</h5>
             <p class="card-text bold">${item.sale ? `<span class="badge badge-info sale-badge"><i class="fa fa-bell" aria-hidden="true"></i> Sale</span> $${item.price}` : `$${item.price}`}</p>
