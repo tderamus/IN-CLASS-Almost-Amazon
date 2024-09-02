@@ -10,7 +10,7 @@ import { showAuthors } from '../pages/authors';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import viewAuthor from '../pages/viewAuthor';
 
-const domEvents = () => {
+const domEvents = (user) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     // TODO: CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
@@ -34,7 +34,7 @@ const domEvents = () => {
     if (e.target.id.includes('edit-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
 
-      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
+      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj, user));
       // getSingleBook(firebaseKey).then(addBookForm); // using the callback method
     }
 
