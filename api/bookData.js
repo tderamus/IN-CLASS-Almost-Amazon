@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import client from '../utils/client';
 
 // API CALLS FOR BOOKS
@@ -5,8 +6,8 @@ import client from '../utils/client';
 const endpoint = client.databaseURL;
 
 // TODO: GET BOOKS
-const getBooks = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books.json?orderBy="uid"&equalTo"${uid}"`, {
+const getBooks = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json?orderBy="uid"&equalTo"${firebase.auth().currentUser.uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -16,6 +17,7 @@ const getBooks = (uid) => new Promise((resolve, reject) => {
     .then((data) => {
       if (data) {
         resolve(Object.values(data));
+        console.warn(data);
       } else {
         resolve([]);
       }
@@ -78,8 +80,8 @@ const updateBook = (payload) => new Promise((resolve, reject) => {
 });
 
 // TODO: FILTER BOOKS ON SALE
-const booksOnSale = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"`, {
+const booksOnSale = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
