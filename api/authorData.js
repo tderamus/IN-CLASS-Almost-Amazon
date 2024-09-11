@@ -1,10 +1,11 @@
+import firebase from 'firebase';
 import client from '../utils/client';
 
 const endpoint = client.databaseURL;
 
 // FIXME:  GET ALL AUTHORS
-const getAuthors = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo"${uid}"`, {
+const getAuthors = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo"${firebase.auth().currentUser.uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,8 +23,8 @@ const getAuthors = (uid) => new Promise((resolve, reject) => {
 });
 
 // TODO: FILTER FAVORITE AUTHORS
-const favAuthors = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo="${uid}"`, {
+const favAuthors = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -31,8 +32,8 @@ const favAuthors = (uid) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      const myFavoriteAuthor = Object.values(data).filter((item) => item.favorite);
-      resolve(myFavoriteAuthor);
+      const favAuth = Object.values(data).filter((item) => item.favorite);
+      resolve(favAuth);
     })
     .catch(reject);
 });

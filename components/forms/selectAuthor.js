@@ -14,6 +14,7 @@ const selectAuthor = (authorId) => {
             ${authorId === author.firebaseKey ? 'selected' : ''}>
               ${author.first_name} ${author.last_name}
           </option>`;
+      console.warn(author);
     });
 
     domString += '</select>';
